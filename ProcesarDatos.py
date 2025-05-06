@@ -65,10 +65,6 @@ def procesar_datos(df):
 # -------------------------- MAPA FOLIUM ---------------------------
 #*******************************************************************
 
-# Leer shapefile
-gdf = gpd.read_file(r"C:\Users\taco_\DS\notebooks\Criminalidad mxl\mapa\BC.shp", engine="pyogrio")
-
-
 def procesar_mapa(gdf):
 
     # Renombrar columnas
