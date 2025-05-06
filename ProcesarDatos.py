@@ -84,9 +84,6 @@ def procesar_datos(df):
 # -------------------------- MAPA FOLIUM ---------------------------
 #*******************************************************************
 
-# Leer shapefile
-
-
 def procesar_mapa(gdf):
 
     # Renombrar columnas
