@@ -72,21 +72,25 @@ chart = graficar_linea_tiempo(df)
 def graficar_barras(x, data, title, xlabel, ylabel, palette='reds'):
     conteo = data[x].value_counts()
 
-    if x in ['DiaHecho', 'DiaRegistro']:
-        orden_dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+    orden_dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+    orden_meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+
+    if x in ['Dia', 'DiaRegistro']:
         conteo = conteo.reindex(orden_dias).fillna(0)
+        sort_order = orden_dias
+    elif x in ['Mes', 'MesRegistro']:
+        conteo = conteo.reindex(orden_meses).fillna(0)
+        sort_order = orden_meses
     else:
         conteo = conteo.sort_index()
+        sort_order = None
 
     df_conteo = pd.DataFrame({
         x: conteo.index,
         'Cantidad': conteo.values
     })
 
-    if x in ['DiaHecho', 'DiaRegistro']:
-        x_axis = alt.X(f'{x}:O', title=xlabel, sort=orden_dias)
-    else:
-        x_axis = alt.X(f'{x}:O', title=xlabel)
+    x_axis = alt.X(f'{x}:O', title=xlabel, sort=sort_order)
 
     chart = alt.Chart(df_conteo).mark_bar().encode(
         x=x_axis,

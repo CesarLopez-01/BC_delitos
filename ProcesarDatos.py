@@ -37,13 +37,13 @@ def procesar_datos(df):
 
     # Nuevas columnas de tiempo
     df['AñoRegistro'] = df['FECHA DE REGISTRO DEL DELITO'].dt.year
-    df['MesRegistro'] = df['FECHA DE REGISTRO DEL DELITO'].dt.month
+    df['MesRegistro'] = df['FECHA DE REGISTRO DEL DELITO'].dt.month_name()
     df['SemanaRegistro'] = df['FECHA DE REGISTRO DEL DELITO'].dt.isocalendar().week
     df['DiaRegistro'] = df['FECHA DE REGISTRO DEL DELITO'].dt.day_name()
-    df['AñoHecho'] = df['FECHA DEL HECHO DEL DELITO'].dt.year
-    df['MesHecho'] = df['FECHA DEL HECHO DEL DELITO'].dt.month
-    df['SemanaHecho'] = df['FECHA DEL HECHO DEL DELITO'].dt.isocalendar().week
-    df['DiaHecho'] = df['FECHA DEL HECHO DEL DELITO'].dt.day_name()
+    df['Año'] = df['FECHA DEL HECHO DEL DELITO'].dt.year
+    df['Mes'] = df['FECHA DEL HECHO DEL DELITO'].dt.month_name()
+    df['Semana'] = df['FECHA DEL HECHO DEL DELITO'].dt.isocalendar().week
+    df['Dia'] = df['FECHA DEL HECHO DEL DELITO'].dt.day_name()
     
     dias_es = {
         'Monday': 'Lunes',
@@ -56,7 +56,26 @@ def procesar_datos(df):
     }
 
     df['DiaRegistro'] = df['DiaRegistro'].map(dias_es)
-    df['DiaHecho'] = df['DiaHecho'].map(dias_es)
+    df['Dia'] = df['Dia'].map(dias_es)
+
+    mes_es = {
+        'January': 'Ene',
+        'February': 'Feb',
+        'March': 'Mar',
+        'April': 'Abr',
+        'May': 'May',
+        'June': 'Jun',
+        'July': 'Jul',
+        'August': 'Ago',
+        'September': 'Sep',
+        'October': 'Oct',
+        'November': 'Nov',
+        'December': 'Dic'
+    }
+    
+    df['MesRegistro'] = df['MesRegistro'].map(mes_es)
+    df['Mes'] = df['Mes'].map(mes_es)
+
 
 
     return df
@@ -66,7 +85,6 @@ def procesar_datos(df):
 #*******************************************************************
 
 # Leer shapefile
-gdf = gpd.read_file(r"C:\Users\taco_\DS\notebooks\Criminalidad mxl\mapa\BC.shp", engine="pyogrio")
 
 
 def procesar_mapa(gdf):

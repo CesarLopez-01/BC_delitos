@@ -68,7 +68,7 @@ df_horas = df[df['HORA DEL HECHO DEL DELITO'].str.strip() != '00:00'].copy()
 df = procesar_datos(df)
 df_horas = procesar_datos(df_horas)
 
-años = df['AñoHecho'].unique()
+años = df['Año'].unique()
 
 
 # ----------------------------- SELECCIONAR AÑOS ------------------------------
@@ -83,16 +83,16 @@ if len(años) > 1:
         value=(min(años), max(años))
     )
 
-    df = df[(df['AñoHecho'] >= fecha[0]) & (df['AñoHecho'] <= fecha[1])]
-    df_horas = df_horas[(df_horas['AñoHecho'] >= fecha[0]) & (df_horas['AñoHecho'] <= fecha[1])]
+    df = df[(df['Año'] >= fecha[0]) & (df['Año'] <= fecha[1])]
+    df_horas = df_horas[(df_horas['Año'] >= fecha[0]) & (df_horas['Año'] <= fecha[1])]
     
 
 else:
     st.info(f"SOLO HAY DATOS DEL AÑO {años[0]}")
     fecha = (años[0], años[0])
 
-    df = df[df['AñoHecho'] == años[0]]
-    df_horas = df_horas[df_horas['AñoHecho'] == años[0]]
+    df = df[df['Año'] == años[0]]
+    df_horas = df_horas[df_horas['Año'] == años[0]]
 
 
 
@@ -122,18 +122,18 @@ col1, col2 = st.columns(2)
 #COLUMNA 1 - AÑO Y DIA
 with col1:
     st.markdown(f'### DELITOS POR AÑO EN {localidad.upper()}')
-    chart_años = graficar_barras('AñoHecho', df, '', 'AÑO', 'CANTIDAD DE DELITOS', 'blues')
+    chart_años = graficar_barras('Año', df, '', 'AÑO', 'CANTIDAD DE DELITOS', 'blues')
     st.altair_chart(chart_años, use_container_width=True)
     
     
     st.markdown(f'### DELITOS POR DIA EN {localidad.upper()}')
-    chart_dias = graficar_barras('DiaHecho', df, '', 'DIA', 'CANTIDAD DE DELITOS', 'oranges')
+    chart_dias = graficar_barras('Dia', df, '', 'DIA', 'CANTIDAD DE DELITOS', 'oranges')
     st.altair_chart(chart_dias, use_container_width=True)
     
 #COLUMNA 2 - MES Y HORA
 with col2:
     st.markdown(f'### DELITOS POR MES EN {localidad.upper()}')
-    chart_meses = graficar_barras('MesHecho', df, '', 'MES', 'CANTIDAD DE DELITOS', 'reds')
+    chart_meses = graficar_barras('Mes', df, '', 'MES', 'CANTIDAD DE DELITOS', 'reds')
     st.altair_chart(chart_meses, use_container_width=True)
     
     
